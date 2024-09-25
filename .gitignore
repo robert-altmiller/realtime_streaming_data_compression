@@ -162,4 +162,4 @@ cython_debug/
 #.idea/
 
 # ignore all files and subfolders in the eventhub folder
-eventhub/
+unit_tests/eventhub/
