@@ -13,7 +13,7 @@ from streaming_config_params.install_requirements import *
 
 # connection parameters
 eventhub_name = "my-event-hub-2" # MODIFY
-event_hub_connection_str = "Endpoint=sb://alt-event-hub.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=XXXXXXXXXXXX" # MODIFY
+event_hub_connection_str = "Endpoint=sb://alt-event-hub.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=XXXXXXXXXXXXXX" # MODIFY
 event_hub_consumer_group = "$Default" # MODIFY
 
 
