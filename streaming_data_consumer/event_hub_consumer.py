@@ -2,7 +2,7 @@ from streaming_data_compression.compression_handler import *
 
 
 class EventHubConsumer:
-    def __init__(self, spark, spark_context, event_hub_connection_str, eventhub_name, eh_base_path="./event-hub", mins_to_simulated_failure=1000000000):
+    def __init__(self, spark, spark_context, event_hub_connection_str, eventhub_name, eh_base_path, mins_to_simulated_failure=1000000000):
         self.spark = spark
         self.spark_context = spark_context
         self.event_hub_connection_str = event_hub_connection_str
@@ -73,8 +73,8 @@ class EventHubConsumer:
                 batch_df_parsed_pandas = batch_df_parsed.toPandas()
                 timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
                 output_file_name = f'output_file_{timestamp}.json'
-                output_file_path = f"{os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}{self.data_output_path.replace('.','')}/{output_file_name}"
-
+                output_file_path = os.path.join(self.data_output_path, output_file_name)
+                print(f"output_file_path: {output_file_path}")
                 batch_df_parsed_pandas.to_json(output_file_path, orient='records', lines=True)
 
                 # Further compress the JSON file using gzip
