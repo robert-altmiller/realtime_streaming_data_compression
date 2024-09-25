@@ -1,3 +1,4 @@
 azure-eventhub
 delta-spark
 pyarrow
+typing_extensions

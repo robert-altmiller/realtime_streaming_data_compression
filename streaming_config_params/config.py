@@ -1,20 +1,19 @@
+
 # library imports
 import base64, gzip, hashlib, os, json, random, time, zlib
 from datetime import datetime
 import pandas as pd
-from azure.eventhub import EventData, EventHubProducerClient, EventHubConsumerClient
 from pyspark import SparkContext
 from pyspark.sql import SparkSession
-from delta import * # has configure_spark_with_delta_pip()
 from pyspark.sql.functions import col, expr, lit, from_json, udf
 from pyspark.sql.utils import StreamingQueryException
 from pyspark.sql.types import StructType, StructField, IntegerType, DoubleType, StringType
+# install requirements.txt file (e.g. azure-eventhub)
 from streaming_config_params.install_requirements import *
-
 
 # connection parameters
 eventhub_name = "my-event-hub-2" # MODIFY
-event_hub_connection_str = "Endpoint=sb://alt-event-hub.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=****************" # MODIFY
+event_hub_connection_str = "Endpoint=sb://alt-event-hub.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=XXXXXXXXXXX" # MODIFY
 event_hub_consumer_group = "$Default" # MODIFY
 
 
@@ -29,6 +28,7 @@ def is_running_in_databricks():
     else:
         print("code is running locally....\n")
         return False
+
 
 # create spark session and install requirements (e.g. azure-eventhub)
 if is_running_in_databricks() == False:
@@ -46,6 +46,12 @@ if is_running_in_databricks() == False:
             .config("spark.sql.adaptive.enabled", "false")  # Disable AQE
         # initialize SparkSession and SparkContext
         spark = builder_delta.getOrCreate()
-        spark_context= spark.sparkContext
+# initialize SparkContext
+spark_context = spark.sparkContext
 # install requirements.txt file (e.g. azure-eventhub)
 install_requirements(requirements_file = f'{os.path.dirname(os.path.abspath(__file__))}/requirements.txt')
+
+
+# additional imports after we install the requirements.txt file
+from azure.eventhub import EventData, EventHubProducerClient, EventHubConsumerClient
+from delta import * # has configure_spark_with_delta_pip() Python function

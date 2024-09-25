@@ -12,5 +12,3 @@ event_hub_sender = EventHubSender(
     show_events = True # or False
 )
 event_hub_sender.run()
-
-
