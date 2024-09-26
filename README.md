@@ -53,7 +53,7 @@ Here is what the real-time streaming JSON payload looks like after we read the c
 
   ![clone_down_gh_repository.png](/readme_images/clone_down_gh_repository.png)
 
-- Step 2: Update Azure Event Hub Connection Parameters in the '__streaming_config_params__' folder --> '__config.py__' Python file.  The '__event_hub_connection_str__' parameter in the screenshot below is the 'shared access policy' for the Azure Event Hubs namespace.  This Endpoint connection string has access to all event hubs in the Azure Event Hubs Namespace.  The second screenshot below shows where you can get the 'shared access policy' Endpoint connection string in the Azure Event Hubs Namespace resource.
+- Step 2: Update Azure Event Hub Connection Parameters in the '__streaming_config_params__' folder --> '__config.py__' Python file.  The '__event_hub_connection_str__' parameter in the screenshot below is the 'shared access policy' for the Azure Event Hubs namespace.  This Endpoint connection string has access to all event hubs in the Azure Event Hubs Namespace.  The second screenshot below shows where you can get the 'shared access policy' Endpoint connection string in the Azure Event Hubs Namespace resource.  You will also need to update '__eventhub_name__' and '__event_hub_consumer_group__' parameters to match your configuration.
 
   ![update_az_eh_conn_params.png](/readme_images/update_az_eh_conn_params.png)
 
@@ -62,3 +62,7 @@ Here is what the real-time streaming JSON payload looks like after we read the c
 - Step 3: Update the JSON payload used with EventHubSender class (optional).  You can find it in the '__streaming_data_producer__' folder --> '__event_hub_producer.py__' Python file.  If you have your own custom JSON payload you can overwrite this '__event_data__' dictionary below with your custom JSON payload and dynamically insert synthetic data into it to simulate different event payloads.
 
   ![update_json_payload.png](/readme_images/update_json_payload.png)
+
+- Step 4: Run the code locally in your integrated development (IDE) environment or in Databricks. In the '__unit_tests__' folder you will find the following Python files: [1-test_event_hub_producer.py](/unit_tests/1-test_event_hub_producer.py), [2-test_event_hub_consumer.py](/unit_tests/2-test_event_hub_consumer.py), and [3-test_join_gzips_and_decompress.py](unit_tests/3-test_join_gzips_and_decompress.py).  Run them in chronological order.  The '1-test_event_hub_producer.py' will stream events to an Azure Event Hub, the '2-test_event_hub_consumer.py' will read events from the event hub, compress the payload and also create an MD5 has unique key of the payload, store these two fields in a local JSON file, and compress the JSON file into a *.gz local file using Spark Structured Streaming, Pandas, Zlib, Base64, Hashlib, and Gzip Python libraries.
+
+  ![steps_to_run_demo.png](/readme_images/steps_to_run_demo.png)
