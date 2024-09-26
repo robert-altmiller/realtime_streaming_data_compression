@@ -2,7 +2,7 @@
 
 ## Fast and Efficient Compression and Decompression for Large JSON Payloads From An Azure Event Hub<br><br>
 
-__Every industry today deals with real-time streaming data.  Real-time streaming data can come from a variety of sources, each suited to different applications and needs.  Here are some examples below:__
+__Every industry today deals with real-time streaming data.  Real-time streaming data can come from a variety of sources, each suited to different applications and needs.__
 
 - IoT Devices: Internet of Things (IoT) devices are a major source of real-time data. Sensors on these devices can stream data about temperature, humidity, and motion and are useful in industries like agriculture, manufacturing, and smart homes.
 - Social Media Platforms: Services like Twitter and Facebook generate vast amounts of real-time data through user interactions such as posts, tweets, likes, and comments. This data is used for keyword and sentiment analysis, trending topics, and social media monitoring.
