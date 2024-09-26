@@ -2,6 +2,7 @@ from streaming_data_compression.compression_handler import *
 
 
 class EventHubConsumer:
+    
     def __init__(self, spark, spark_context, event_hub_connection_str, eventhub_name, eh_base_path, mins_to_simulated_failure=1000000000):
         self.spark = spark
         self.spark_context = spark_context
@@ -17,7 +18,8 @@ class EventHubConsumer:
         # setup paths and event hub configuration
         self.setup_paths()
         self.configure_event_hub()
-        
+
+
     def setup_paths(self):
         """
         Create the output path if it doesn't exist.

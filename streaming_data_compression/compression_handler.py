@@ -3,6 +3,7 @@ from streaming_config_params.config import *
 
 
 class CompressionHandler:
+    
     def __init__(self, original_file_path=None, gz_file_path=None):
         self.original_file_path = original_file_path
         self.gz_file_path = gz_file_path
@@ -63,6 +64,7 @@ class CompressionHandler:
             gz_file.write(json_data)
         print(f"File compressed to {self.gz_file_path} using gz.")
 
+
     def get_gz_json_file_sizes(self):
         """
         returns the size of the original JSON and compressed gz files in KB.
@@ -70,6 +72,7 @@ class CompressionHandler:
         original_size = os.path.getsize(self.original_file_path)
         gz_size = os.path.getsize(self.gz_file_path)
         return original_size / 1024, gz_size / 1024
+
 
     def print_gz_compression_savings(self):
         """

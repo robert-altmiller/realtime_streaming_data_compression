@@ -3,6 +3,7 @@ from streaming_config_params.config import *
 
 
 class EventHubSender:
+    
     def __init__(self, eventhub_name, event_hub_connection_str, consumer_group="$Default", show_events = True,
                  num_events_per_batch=1000, target_events_per_minute=100000, total_events_to_send=100000000):
         # Event hub parameters
@@ -25,6 +26,7 @@ class EventHubSender:
         self.start_time = time.time()
         self.events_sent = 0
 
+
     def generate_event_data(self, i):
         """
         Generate simulated event data.
@@ -37,6 +39,7 @@ class EventHubSender:
         }
         return event_data
 
+
     def encode_event_data(self, event_data):
         """
         Convert event data to JSON and Base64 encode it.
@@ -44,6 +47,7 @@ class EventHubSender:
         event_data_str = json.dumps(event_data)
         encoded_event_data = base64.b64encode(event_data_str.encode()).decode()
         return EventData(encoded_event_data)
+
 
     def show_events_data(self, event_data):
         """
@@ -90,6 +94,7 @@ class EventHubSender:
             print("Exception:", e)
         finally:
             self.producer_client.close()
+
 
     def run(self):
         """
