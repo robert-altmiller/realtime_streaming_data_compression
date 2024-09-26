@@ -53,7 +53,7 @@ Here is what the real-time streaming JSON payload looks like after we read the c
 
   ![clone_down_gh_repository.png](/readme_images/clone_down_gh_repository.png)
 
-- Step 2: Update Azure Event Hub Connection Parameters in the __streaming_config_params__ folder --> __config.py__ Python file.  The __event_hub_connection_str__ parameter in the screenshot below is the shared access signature for the Azure Event Hubs namespace.  This Endpoint connection string has access to all Azure Event Hubs in the Azure Event Hubs namespace.  The second screenshot below shows where you can get the shared access signature in the Azure Event Hubs Namespace resource.
+- Step 2: Update Azure Event Hub Connection Parameters in the __streaming_config_params__ folder --> __config.py__ Python file.  The __event_hub_connection_str__ parameter in the screenshot below is the 'shared access policy' for the Azure Event Hubs namespace.  This Endpoint connection string has access to all event hubs in the Azure Event Hubs Namespace.  The second screenshot below shows where you can get the 'shared access policy' Endpoint connection string in the Azure Event Hubs Namespace resource.
 
   ![update_az_eh_conn_params.png](/readme_images/update_az_eh_conn_params.png)
 
