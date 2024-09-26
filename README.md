@@ -33,7 +33,7 @@ Compressing real-time streaming data is crucial for several reasons:
 - Compressed data can be processed more quickly and enables complex analytics in real-time which leads to better insights and decision making.
 - Compression helps mitigate the effects of increased data volume and makes it easier to scale an application without degrading performance.
 
-## What does the JSON payload look like before compression and after compression
+## What does the JSON payload look like before and after compression?
 
 We use 'zlib' and 'base64' Python libraries to encode the real-time streaming JSON payload and store it in a JSON arrary as '__compressed_decoded_body__'.  Here is what the real-time streaming JSON payload looks like after we apply a compression Python user defined function (UDF) to it:
 
