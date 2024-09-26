@@ -36,7 +36,7 @@ Compressing real-time streaming data is crucial for several reasons:
 
 ## What does the JSON payload look like before compression and after compression
 
-We use 'zlib' and 'base64' Python libraries to encode the real-time streaming JSON payload and store it a JSON arrary as '__compressed_decoded_body__'.  Here is what the real-time streaming JSON payload looks like after we apply a compression Python user defined function (UDF) to it:
+We use 'zlib' and 'base64' Python libraries to encode the real-time streaming JSON payload and store it in a JSON arrary as '__compressed_decoded_body__'.  Here is what the real-time streaming JSON payload looks like after we apply a compression Python user defined function (UDF) to it:
 
   ![compressed_payload.png](/readme_images/compressed_payload.png)
 
