@@ -1,13 +1,22 @@
 from streaming_data_compression.decompression_handler import *
 
 
-# Define paths
-eh_base_path = "/event-hub"
-data_base_path = f"{eh_base_path}/data"
-data_output_path = f"./{data_base_path}/event-hub-capture"
+if is_running_in_databricks():
+    # get the current notebook path using dbutils
+    notebook_path = dbutils.notebook.entry_point.getDbutils().notebook().getContext().notebookPath().get()
+    eh_base_path = f"/Workspace{os.path.dirname(notebook_path)}/event-hub"
+else:
+    eh_base_path = f"{os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}/unit_tests/event-hub"
+print(f"eh_base_path: {eh_base_path}")
 
-# decompression handler class
+data_basepath = f"{eh_base_path}/data"
+data_output_path = f"{data_basepath}/event-hub-capture"
+
+
+# DecompressionHandler usage example
 dh_class = DecompressionHandler(None)
-dh_class.set_gz_folder_path(f"{data_output_path}/*.gz")
+if is_running_in_databricks():
+    dh_class.set_gz_folder_path(f"file:{data_output_path}/*.gz")
+else: dh_class.set_gz_folder_path(f"{data_output_path}/*.gz")
 df = dh_class.decompress_gz_into_spark_dataframe()
 df.show(5, truncate = False)

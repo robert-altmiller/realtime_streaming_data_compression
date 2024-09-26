@@ -10,6 +10,7 @@ class EventHubConsumer:
         self.eh_base_path = eh_base_path
         self.data_base_path = f"{self.eh_base_path}/data"
         self.data_output_path = f"{self.data_base_path}/event-hub-capture"
+        self.data_checkpoint_path = f"{self.eh_base_path}/checkpoint"
         self.mins_to_simulated_failure = mins_to_simulated_failure
         self.ehConf = {}
 
@@ -21,8 +22,7 @@ class EventHubConsumer:
         """
         Create the output path if it doesn't exist.
         """
-        if not os.path.exists(self.data_output_path):
-            os.makedirs(self.data_output_path, exist_ok = True)
+        os.makedirs(self.data_output_path, exist_ok = True)
 
 
     def configure_event_hub(self):
@@ -94,9 +94,10 @@ class EventHubConsumer:
         """
         decoded_df = self.decode_stream(self.read_stream())
         
+        print(f"checkpoint_path: {self.data_checkpoint_path}")
         query = decoded_df.writeStream \
             .format("json") \
             .foreachBatch(self.process_batch) \
-            .option("checkpointLocation", f"{self.eh_base_path}/checkpoint") \
+            .option("checkpointLocation", self.data_checkpoint_path) \
             .start()
         query.awaitTermination()
