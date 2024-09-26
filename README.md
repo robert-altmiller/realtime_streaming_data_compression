@@ -1,6 +1,6 @@
 # Real Time Streaming Data Compression For Large JSON Payloads
 
-## Fast and Efficient Compression and Decompression for Streaming Data JSON Payloads From An Azure Event Hub<br><br>
+## Fast and Efficient Compression and Decompression for Large JSON Payloads From An Azure Event Hub<br><br>
 
 __Every industry today deals with real-time streaming data.  Real-time streaming data can come from a variety of sources, each suited to different applications and needs.  Here are some examples below:__
 
