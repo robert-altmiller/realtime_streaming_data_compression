@@ -41,8 +41,22 @@ We use 'zlib' and 'base64' Python libraries to encode the real-time streaming JS
 
 We then take all of the different stored compressed JSON files and store them as individual *.gz" files.  A *.gz file is a file that has been compressed using the Gzip (GNU zip) compression algorithm, and Gzip is effective at reducing the size of text files like source code, HTML, or log files.  These *.gz files also integrate with Spark dataframes seamlessly.  In some of our own testing the file storage size is reduce by around 40% - 50% when you store large real-time data JSON payloads as *.gz files.<br>
 
-Next we read all the *.gz files into a Spark dataframe, and then decompress the '__compressed_decoded_body__' column into a '__decompressed_decoded_body__' column using a decompression Python UDF.  This allows us to store the JSON payloads the cost effectively in the cloud or on-premise, and access the data immediately using Spark for analytics, downstream transformations, and insights.
+Next we read all the *.gz files into a Spark dataframe, and then decompress the '__compressed_decoded_body__' column into a '__decompressed_decoded_body__' column using a decompression Python UDF.  This allows us to store the JSON payloads the cost effectively in the cloud or on-premise, and access the data immediately using Spark for analytics, downstream transformations, and insights.  Reading the compressed data into a Spark dataframe provides faster data reads due to smaller amounts of data being transferred over the network or disk I/O. This also reduce the time it takes to load data into memory before any transformations or actions are applied.
 
-Here is what the real-time streaming JSON payload looks like after we apply a decompression UDF to it:
+Here is what the real-time streaming JSON payload looks like after we read the compressed *.gz file into a Spark dataframe and then apply a decompression UDF to it:
 
   ![decompressed_payload.png](/readme_images/decompressed_payload.png)
+
+## How do you get started?
+
+- Step 1: Clone Down the Github Repository: __https://github.com/robert-altmiller/realtime_streaming_data_compression__
+
+    ![clone_down_repo.png](/readme_images/clone_down_repo.png)
+
+- Step 2: Update Azure Event Hub Connection Parameters in the __streaming_config_params__ folder --> __config.py__ Python file.  The __event_hub_connection_str__ parameter in the screenshot below is the shared access signature for the Azure Event Hubs namespace.  This Endpoint connection string has access to all Azure Event Hubs in the Azure Event Hubs namespace.  The second screenshot below shows where you can get the shared access signature in the Azure Event Hubs Namespace resource.
+
+    ![update_az_eh_conn_params.png](/readme_images/update_az_eh_conn_params.png)
+
+    ![az_eh_sas_conn_string.png](/readme_images/az_eh_sas_conn_string.png)
+
+- Step 3:
