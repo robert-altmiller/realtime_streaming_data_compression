@@ -1,8 +1,8 @@
-# Real Time Streaming Data Compression and Decompression For Large JSON Payloads
+# Real Time Streaming Data Compression For Large JSON Payloads
 
 ## Fast and Efficient Compression and Decompression for Streaming Data JSON Payloads From An Azure Event Hub<br><br>
 
-Every industry today deals with real-time streaming data.  Real-time streaming data can come from a variety of sources, each suited to different applications and needs.  Here are some examples below:
+__Every industry today deals with real-time streaming data.  Real-time streaming data can come from a variety of sources, each suited to different applications and needs.  Here are some examples below:__
 
 - IoT Devices: Internet of Things (IoT) devices are a major source of real-time data. Sensors on these devices can stream data about temperature, humidity, and motion and are useful in industries like agriculture, manufacturing, and smart homes.
 - Social Media Platforms: Services like Twitter and Facebook generate vast amounts of real-time data through user interactions such as posts, tweets, likes, and comments. This data is used for keyword and sentiment analysis, trending topics, and social media monitoring.
@@ -12,7 +12,7 @@ Every industry today deals with real-time streaming data.  Real-time streaming d
 - Vehicle and Traffic Sensors: Real-time data from vehicle telematics and traffic sensors is used in navigation systems, urban planning, and real-time traffic management.
 - Healthcare Monitoring Devices: In healthcare, real-time data streaming from medical devices, such as heart rate monitors and glucose monitors help to support remote patient monitoring and emergency alerts.
 
-Streaming data presents many opportunities for insights and better decision making.  However, there are also challenges that organizations must manage effectively. Some of these challenges include:
+__Streaming data presents many opportunities for insights and better decision making.  However, there are also challenges that organizations must manage effectively. Some of these challenges include:__
 
 - Streaming data often arrives at high velocity and in large volumes. Managing this rapid influx of data without losing or overlooking important information requires robust infrastructure and scalable processing systems.
 - The quality of streaming data can be inconsistent and have missing values, duplicates, or errors due to sensor malfunctions or network issues.  Advanced filtering, validation, and error-handling techniques are needed to handle this.
