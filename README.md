@@ -53,10 +53,12 @@ Here is what the real-time streaming JSON payload looks like after we read the c
 
   ![clone_down_gh_repository.png](/readme_images/clone_down_gh_repository.png)
 
-- Step 2: Update Azure Event Hub Connection Parameters in the __streaming_config_params__ folder --> __config.py__ Python file.  The __event_hub_connection_str__ parameter in the screenshot below is the 'shared access policy' for the Azure Event Hubs namespace.  This Endpoint connection string has access to all event hubs in the Azure Event Hubs Namespace.  The second screenshot below shows where you can get the 'shared access policy' Endpoint connection string in the Azure Event Hubs Namespace resource.
+- Step 2: Update Azure Event Hub Connection Parameters in the '__streaming_config_params__' folder --> '__config.py__' Python file.  The '__event_hub_connection_str__' parameter in the screenshot below is the 'shared access policy' for the Azure Event Hubs namespace.  This Endpoint connection string has access to all event hubs in the Azure Event Hubs Namespace.  The second screenshot below shows where you can get the 'shared access policy' Endpoint connection string in the Azure Event Hubs Namespace resource.
 
   ![update_az_eh_conn_params.png](/readme_images/update_az_eh_conn_params.png)
 
   ![az_eh_sas_conn_string.png](/readme_images/az_eh_sas_conn_string.png)
 
-- Step 3:
+- Step 3: Update the JSON payload used with EventHubSender class (optional).  You can find it in the '__streaming_data_producer__' folder --> '__event_hub_producer.py__' Python file.  If you have your own custom JSON payload you can overwrite this '__event_data__' dictionary below with your custom JSON payload and dynamically insert synthetic data into it to simulate different event payloads.
+
+  ![update_json_payload.png](/readme_images/update_json_payload.png)
