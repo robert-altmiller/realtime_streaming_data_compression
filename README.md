@@ -63,6 +63,10 @@ Here is what the real-time streaming JSON payload looks like after we read the c
 
   ![update_json_payload.png](/readme_images/update_json_payload.png)
 
-- Step 4: Run the code locally in your integrated development (IDE) environment or in Databricks. In the '__unit_tests__' folder you will find the following Python files: [1-test_event_hub_producer.py](/unit_tests/1-test_event_hub_producer.py), [2-test_event_hub_consumer.py](/unit_tests/2-test_event_hub_consumer.py), and [3-test_join_gzips_and_decompress.py](unit_tests/3-test_join_gzips_and_decompress.py).  Run them in chronological order.  The '1-test_event_hub_producer.py' will stream events to an Azure Event Hub, the '2-test_event_hub_consumer.py' will read events from the event hub, compress the payload and also create an MD5 has unique key of the payload, store these two fields in a local JSON file, and compress the JSON file into a *.gz local file using Spark Structured Streaming, Pandas, Zlib, Base64, Hashlib, and Gzip Python libraries.
+- Step 4: Run the code locally in your integrated development (IDE) environment or in Databricks. In the '__unit_tests__' folder you will find the following Python files: 
+
+  [1-test_event_hub_producer.py](/unit_tests/1-test_event_hub_producer.py), [2-test_event_hub_consumer.py](/unit_tests/2-test_event_hub_consumer.py), and [3-test_join_gzips_and_decompress.py](unit_tests/3-test_join_gzips_and_decompress.py).  
+  
+  Run them in chronological order.  The '1-test_event_hub_producer.py' will stream events to an Azure Event Hub, the '2-test_event_hub_consumer.py' will read events from the event hub, compress the payload and also create an MD5 has unique key of the payload, store these two fields in a local JSON file, and compress the JSON file into a *.gz local file using Spark Structured Streaming, Pandas, Zlib, Base64, Hashlib, and Gzip Python libraries.
 
   ![steps_to_run_demo.png](/readme_images/steps_to_run_demo.png)
