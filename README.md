@@ -39,7 +39,7 @@ We use 'zlib' and 'base64' Python libraries to encode the real-time streaming JS
 
   ![compressed_payload.png](/readme_images/compressed_payload.png)
 
-We then take all of the different stored compressed JSON files and store them as individual *.gz" files.  A *.gz file is a file that has been compressed using the Gzip (GNU zip) compression algorithm, and Gzip is effective at reducing the size of text files like source code, HTML, or log files.  These *.gz files also integrate with Spark dataframes seamlessly.  In some of our own testing the file storage size is reduce by around 40% - 50% when you store large real-time data JSON payloads as *.gz files.<br><br>
+We then take all of the different stored compressed JSON files and store them as individual *.gz" files.  A *.gz file is a file that has been compressed using the Gzip (GNU zip) compression algorithm, and Gzip is effective at reducing the size of text files like source code, HTML, or log files.  These *.gz files also integrate with Spark dataframes seamlessly.  In some of our own testing the file storage size is reduce by around 40% - 50% when you store large real-time data JSON payloads as *.gz files.<br>
 
 Next we read all the *.gz files into a Spark dataframe, and then decompress the '__compressed_decoded_body__' column using a decompression Python UDF.  This allows us to store the JSON payloads the cost effectively in the cloud, and access the data immediately for analytics, downstream transformations, and insights.
 
