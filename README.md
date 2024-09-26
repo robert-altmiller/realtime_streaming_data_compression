@@ -12,7 +12,7 @@ __Every industry today deals with real-time streaming data.  Real-time streaming
 
 ## What are some challenges with streaming data?
 
-Streaming data presents many opportunities for insights and better decision making.  However, there are also challenges that organizations must manage effectively. Some of these challenges include:
+__Streaming data presents many opportunities for insights and better decision making.  However, there are also challenges that organizations must manage effectively.__
 
 - Streaming data often arrives at high velocity and in large volumes. Managing this rapid influx of data without losing or overlooking important information requires robust infrastructure and scalable processing systems.
 - The quality of streaming data can be inconsistent and have missing values, duplicates, or errors due to sensor malfunctions or network issues.  Advanced filtering, validation, and error-handling techniques are needed to handle this.
