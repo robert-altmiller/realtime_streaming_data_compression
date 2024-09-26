@@ -13,7 +13,7 @@ from streaming_config_params.install_requirements import *
 
 # connection parameters
 eventhub_name = "my-event-hub-2" # MODIFY
-event_hub_connection_str = "Endpoint=sb://alt-event-hub.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=XXXXXXXXXXXXXX" # MODIFY
+event_hub_connection_str = "Endpoint=sb://alt-event-hub.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=XXXXXXXXX" # MODIFY
 event_hub_consumer_group = "$Default" # MODIFY
 
 
@@ -46,10 +46,14 @@ if is_running_in_databricks() == False:
             .config("spark.sql.adaptive.enabled", "false")  # Disable AQE
         # initialize SparkSession and SparkContext
         spark = builder_delta.getOrCreate()
+    # install requirements.txt file (e.g. azure-eventhub)
+    install_requirements(requirements_file = f"{os.path.dirname(os.path.abspath(__file__))}/requirements.txt")
+else: 
+    # install requirements.txt file (e.g. azure-eventhub)
+    install_requirements(requirements_file = "requirements.txt")
 # initialize SparkContext
 spark_context = spark.sparkContext
-# install requirements.txt file (e.g. azure-eventhub)
-install_requirements(requirements_file = f'{os.path.dirname(os.path.abspath(__file__))}/requirements.txt')
+
 
 
 # additional imports after we install the requirements.txt file
