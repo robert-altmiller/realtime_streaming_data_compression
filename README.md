@@ -41,9 +41,9 @@ We use 'zlib' and 'base64' Python libraries to encode the real-time streaming JS
 
 We then take all of the different stored compressed JSON files and store them as individual *.gz" files.  A *.gz file is a file that has been compressed using the Gzip (GNU zip) compression algorithm, and Gzip is effective at reducing the size of text files like source code, HTML, or log files.  These *.gz files also integrate with Spark dataframes seamlessly.  In some of our own testing the file storage size is reduce by around 40% - 50% when you store large real-time data JSON payloads as *.gz files.<br>
 
-Next we read all the *.gz files into a Spark dataframe, and then decompress the '__compressed_decoded_body__' column into a '__decompressed_decoded_body__' column using a decompression Python UDF.  This allows us to store the JSON payloads the cost effectively in the cloud or on-premise, and access the data immediately using Spark for analytics, downstream transformations, and insights.  Reading the compressed data into a Spark dataframe provides faster data reads due to smaller amounts of data being transferred over the network or disk I/O. This also reduce the time it takes to load data into memory before any transformations or actions are applied.
+Next we read all the *.gz files into a Spark dataframe, and then decompress the '__compressed_decoded_body__' column into a '__decompressed_decoded_body__' column using a decompression Python UDF.  This allows us to store the JSON payloads the cost effectively in the cloud or on-premise, and access the data immediately using Spark for analytics, downstream transformations, and insights.  Reading the compressed data into a Spark dataframe provides faster data reads due to smaller amounts of data being transferred over the network or disk I/O. This also reduces the time it takes to load data into memory before any transformations or actions are applied.
 
-Here is what the real-time streaming JSON payload looks like after we read the compressed *.gz file into a Spark dataframe and then apply a decompression UDF to it:
+Here is what the real-time streaming JSON payload looks like after we read the compressed *.gz file into a Spark dataframe and then apply a decompression UDF to it.
 
   ![decompressed_payload.png](/readme_images/decompressed_payload.png)
 
