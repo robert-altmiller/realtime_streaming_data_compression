@@ -87,6 +87,10 @@ Here is what the real-time streaming JSON payload looks like after we read the c
 
   ![eh_folder_with_compressed_data_databricks.png](/readme_images/eh_folder_with_compressed_data_databricks.png)
 
-  __IMPORTANT__: The Spark Structured Streaming '__checkpoint__' folder is NOT stored in the '__event-hub__' folder in Databricks.  It is created and stored in the Databricks File System (DBFS) in the following location: '__dbfs:/Workspace/Users/[YOUR EMAIL]/realtime_streaming_data_compression/unit_tests/event-hub__'
+  __IMPORTANT__: The Spark Structured Streaming '__checkpoint__' folder is NOT stored in the '__event-hub__' folder in Databricks.  It is created and stored in the Databricks File System (DBFS) in the following location: '__dbfs:/Workspace/Users/[YOUR EMAIL]/realtime_streaming_data_compression/unit_tests/event-hub__' (see below).
 
   ![checkpoint_folder_in_databricks.png](/readme_images/checkpoint_folder_in_databricks.png)
+
+## How do I ignore stale events in the Azure Event Hub and only process the newest events only?
+
+If you have a requirement to ignore old events or clear a backlog queue of events in the Azure Event Hub, you can accomplish this by deleting the '__checkpoint__' folder in your local IDE or in Databricks. Once you delete this '__checkpoint__' folder, the event processor will reset its state and start processing only the latest events in the stream, rather than resuming from the previously stored checkpoint.
