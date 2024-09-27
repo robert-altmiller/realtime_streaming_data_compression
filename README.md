@@ -87,6 +87,6 @@ Here is what the real-time streaming JSON payload looks like after we read the c
 
   ![eh_folder_with_compressed_data_databricks.png](/readme_images/eh_folder_with_compressed_data_databricks.png)
 
-  __IMPORTANT__: The Spark Structured Streaming '__checkpoint__' folder is NOT stored in the '__event-hub__' folder in Databricks.  It is created and stored in the Databricks File System (DBFS) in the following location: '__dbfs:/Workspace/Users/[YOUR EMAIL ADDRESS]/realtime_streaming_data_compression/unit_tests/event-hub__'
+  __IMPORTANT__: The Spark Structured Streaming '__checkpoint__' folder is NOT stored in the '__event-hub__' folder in Databricks.  It is created and stored in the Databricks File System (DBFS) in the following location: '__dbfs:/Workspace/Users/[YOUR EMAIL]/realtime_streaming_data_compression/unit_tests/event-hub__'
 
   ![checkpoint_folder_in_databricks.png](/readme_images/checkpoint_folder_in_databricks.png)
