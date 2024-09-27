@@ -69,6 +69,6 @@ Here is what the real-time streaming JSON payload looks like after we read the c
   - [2-test_event_hub_consumer.py](/unit_tests/2-test_event_hub_consumer.py)
   - [3-test_join_gzips_and_decompress.py](unit_tests/3-test_join_gzips_and_decompress.py)
   
-  Run them in chronological order.  The '1-test_event_hub_producer.py' will stream events to an Azure Event Hub, the '2-test_event_hub_consumer.py' will read events from the event hub, compress the payload and also create an MD5 has unique key of the payload, store these two fields in a local JSON file, and compress the JSON file into a *.gz local file using Spark Structured Streaming, Pandas, Zlib, Base64, Hashlib, and Gzip Python libraries.
+  Run them in chronological order.  The '__1-test_event_hub_producer.py__' will stream events to an Azure Event Hub, the '__2-test_event_hub_consumer.py__' will read events from the event hub, compress the payload and also create an MD5 has unique key of the payload, store these two fields in a local JSON file, and compress the JSON file into a *.gz local file using Spark Structured Streaming, Pandas, Zlib, Base64, Hashlib, and Gzip Python libraries.  The '__3-test_join_gzips_and_decompress.py__' will read all the *.gz compressed local files with compressed payload data into a Spark Dataframe, and then decompress the payload data for use in downstream analytics, transformations, workflows, and streaming applications.
 
   ![steps_to_run_demo.png](/readme_images/steps_to_run_demo.png)
