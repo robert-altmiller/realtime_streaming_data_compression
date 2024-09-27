@@ -72,3 +72,9 @@ Here is what the real-time streaming JSON payload looks like after we read the c
   Run them in chronological order.  The '__1-test_event_hub_producer.py__' will stream events to an Azure Event Hub, the '__2-test_event_hub_consumer.py__' will read events from the event hub, compress the payload and also create an MD5 has unique key of the payload, store these two fields in a local JSON file, and compress the JSON file into a *.gz local file using Spark Structured Streaming, Pandas, Zlib, Base64, Hashlib, and Gzip Python libraries.  The '__3-test_join_gzips_and_decompress.py__' will read all the *.gz compressed local files with compressed payload data into a Spark Dataframe, and then decompress the payload data for use in downstream analytics, transformations, workflows, and streaming applications.
 
   ![steps_to_run_demo.png](/readme_images/steps_to_run_demo.png)
+
+- Step 5: Understand where the JSON and *.gz compressed files with compressed event hub payload data and Spark structured streaming checkpoint data are stored and read from in a local IDE or Databricks environment.
+
+  If you are running 'Step 4' in a '__local IDE__' you can find the '__checkpoint__' and '__compressed payload files__' under the '__unit_tests__' folder --> '__event-hub__' folder in the '__checkpoint__' and '__data__' folders (see image below).  It is _important_ to remember that this '__event-hub__' folder is only created in the local IDE after running the '__2-test_event_hub_consumer.py__ Python file in the '__unit_tests__' folder which reads and processes Azure Event Hub events using Spark Structured Streaming.
+
+  ![eh_folder_with_compressed_data_local_ide.png](/readme_images/eh_folder_with_compressed_data_local_ide.png)
