@@ -93,6 +93,6 @@ Here is what the real-time streaming JSON payload looks like after we read the c
 
   ![checkpoint_folder_in_databricks.png](/readme_images/checkpoint_folder_in_databricks.png)
 
-## How do I ignore stale events in the Azure Event Hub and only process the newest events only?
+## How do I ignore old events in the Azure Event Hub and only process the newest events only?
 
 If you have a requirement to ignore old events or clear a backlog queue of events in the Azure Event Hub, you can accomplish this by deleting the '__checkpoint__' folder in your local IDE or in Databricks. Once you delete this '__checkpoint__' folder, the event processor will reset its state and start processing only the latest events in the stream, rather than resuming from the previously stored checkpoint.
