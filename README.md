@@ -79,7 +79,7 @@ Here is what the real-time streaming JSON payload looks like after we read the c
 
   ![maven_package_on_dbricks_cluster.png](/readme_images/maven_package_on_dbricks_cluster.png)
 
-- Step 5: Understand where the JSON and *.gz compressed files with compressed event hub payload data and Spark structured streaming checkpoint data are stored and read from in a local IDE or Databricks environment.
+- Step 5: Understand where the JSON and *.gz compressed files with compressed event hub payload data and Spark structured streaming checkpoint data are stored and read from in a local IDE or Databricks environment.  Checkpointing is the process of saving the state of a data stream processing application at regular intervals.  In streaming systems like Azure Event Hub, this allows the application to track its progress (i.e., which events have been processed) and resume processing from where it left off in case of failures or restarts.
 
   If you are running 'Step 4' in a '__local IDE__' you can find the '__checkpoint__' and '__compressed payload files__' under the '__unit_tests__' folder --> '__event-hub__' folder in the '__checkpoint__' and '__data__' folders.  It is _important_ to remember that this '__event-hub__' folder is only created in the local IDE after running the '__2-test_event_hub_consumer.py__ Python file in the '__unit_tests__' folder which reads and processes Azure Event Hub events using Spark Structured Streaming.
 
