@@ -61,7 +61,7 @@ Here is what the real-time streaming JSON payload looks like after we read the c
 
   ![az_eh_sas_conn_string.png](/readme_images/az_eh_sas_conn_string.png)
 
-- Step 3: Update the JSON payload used with EventHubSender class (optional).  You can find it in the '__streaming_data_producer__' folder --> '__event_hub_producer.py__' Python file.  If you have your own custom JSON payload you can overwrite this '__event_data__' dictionary below with your custom JSON payload and dynamically insert synthetic data into it to simulate different event payloads.
+- Step 3: Update the JSON payload used with EventHubSender class (optional).  You can find it in the '__streaming_data_producer__' folder --> '__event_hub_producer.py__' Python file.  If you have your own custom JSON payload you can overwrite this '__event_data__' dictionary below with your custom JSON payload and dynamically insert synthetic data into it to simulate different event payload configurations.
 
   ![update_json_payload.png](/readme_images/update_json_payload.png)
 
@@ -81,7 +81,7 @@ Here is what the real-time streaming JSON payload looks like after we read the c
 
 - Step 5: Understand where the JSON and *.gz compressed files with compressed event hub payload data and Spark structured streaming checkpoint data are stored and read from in a local IDE or Databricks environment.
 
-  If you are running 'Step 4' in a '__local IDE__' you can find the '__checkpoint__' and '__compressed payload files__' under the '__unit_tests__' folder --> '__event-hub__' folder in the '__checkpoint__' and '__data__' folders (see image below).  It is _important_ to remember that this '__event-hub__' folder is only created in the local IDE after running the '__2-test_event_hub_consumer.py__ Python file in the '__unit_tests__' folder which reads and processes Azure Event Hub events using Spark Structured Streaming.
+  If you are running 'Step 4' in a '__local IDE__' you can find the '__checkpoint__' and '__compressed payload files__' under the '__unit_tests__' folder --> '__event-hub__' folder in the '__checkpoint__' and '__data__' folders.  It is _important_ to remember that this '__event-hub__' folder is only created in the local IDE after running the '__2-test_event_hub_consumer.py__ Python file in the '__unit_tests__' folder which reads and processes Azure Event Hub events using Spark Structured Streaming.
 
   ![eh_folder_with_compressed_data_local_ide.png](/readme_images/eh_folder_with_compressed_data_local_ide.png)
 
