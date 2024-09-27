@@ -85,7 +85,7 @@ Here is what the real-time streaming JSON payload looks like after we read the c
 
   ![eh_folder_with_compressed_data_local_ide.png](/readme_images/eh_folder_with_compressed_data_local_ide.png)
 
-  If you are running 'Step 4' in a '__Databricks__' workspace you can find the '__compressed payload files__' under the '__unit_tests__' folder --> '__event-hub__' folder in the '__data__' folder (see image below).  It is _important_ to remember that this '__event-hub__' folder is only created in the Databricks after running the '__2-test_event_hub_consumer.py__ Python file in the '__unit_tests__' folder which reads and processes and stores Azure Event Hub events locally using Spark Structured Streaming.  
+  If you are running 'Step 4' in a '__Databricks__' workspace you can find the '__compressed payload files__' under the '__unit_tests__' folder --> '__event-hub__' folder in the '__data__' folder.  It is _important_ to remember that this '__event-hub__' folder is only created in the Databricks after running the '__2-test_event_hub_consumer.py__ Python file in the '__unit_tests__' folder which reads and processes and stores Azure Event Hub events locally using Spark Structured Streaming.  
 
   ![eh_folder_with_compressed_data_databricks.png](/readme_images/eh_folder_with_compressed_data_databricks.png)
 
