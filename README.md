@@ -73,7 +73,7 @@ Here is what the real-time streaming JSON payload looks like after we read the c
 
   ![steps_to_run_demo.png](/readme_images/steps_to_run_demo.png)
 
-  If you are running the three Python files above in Databricks it is __VERY IMPORTANT__ to install the following Maven package '__com.microsoft.azure:azure-eventhubs-spark_2.12:2.3.21__' on your Databricks single node cluster before executing the Python files.
+  __IMPORTANT__: If you are running the three Python files above in Databricks please install the following Maven package '__com.microsoft.azure:azure-eventhubs-spark_2.12:2.3.21__' on your Databricks single node cluster prior to executing the three Python files.
 
   ![maven_package_on_dbricks_cluster.png](/readme_images/maven_package_on_dbricks_cluster.png)
 
@@ -83,6 +83,8 @@ Here is what the real-time streaming JSON payload looks like after we read the c
 
   ![eh_folder_with_compressed_data_local_ide.png](/readme_images/eh_folder_with_compressed_data_local_ide.png)
 
-  If you are running 'Step 4' in a '__Databricks__' workspace you can find the '__compressed payload files__' under the '__unit_tests__' folder --> '__event-hub__' folder in the '__data__' folder (see image below).  It is _important_ to remember that this '__event-hub__' folder is only created in the Databricks after running the '__2-test_event_hub_consumer.py__ Python file in the '__unit_tests__' folder which reads and processes and stores Azure Event Hub events locally using Spark Structured Streaming.
+  If you are running 'Step 4' in a '__Databricks__' workspace you can find the '__compressed payload files__' under the '__unit_tests__' folder --> '__event-hub__' folder in the '__data__' folder (see image below).  It is _important_ to remember that this '__event-hub__' folder is only created in the Databricks after running the '__2-test_event_hub_consumer.py__ Python file in the '__unit_tests__' folder which reads and processes and stores Azure Event Hub events locally using Spark Structured Streaming.  
+  
+  __IMPORTANT__: The Spark Structured Streaming '__checkpoint__' folder is NOT stored in the '__event-hub__' folder.  
 
   ![eh_folder_with_compressed_data_databricks.png](/readme_images/eh_folder_with_compressed_data_databricks.png)
