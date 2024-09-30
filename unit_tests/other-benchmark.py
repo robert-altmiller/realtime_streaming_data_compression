@@ -51,7 +51,7 @@ def time_df_write_benchmark(read_method, write_method, input_path, output_path, 
         df = spark.read.parquet(input_path)
     if decompress_data == True:
         decompress_udf = decompress_data_udf()
-        df = df.withColumn("decompressed_decoded_body", decompress_udf(df.compressed_decoded_body)).drop("compressed_decoded_body")
+        df = df.withColumn("decoded_body", decompress_udf(df.compressed_decoded_body)).drop("compressed_decoded_body")
     
     # Apply simple aggregation
     df_agg = df.groupBy(agg_by_col).count()
@@ -67,6 +67,7 @@ def time_df_write_benchmark(read_method, write_method, input_path, output_path, 
     time_taken = end_time - start_time
     # Print write benchmarking results
     print(f"\nTime taken to read all files into DataFrame, decompress data: {decompress_data}, and write simple aggregation: {time_taken:.2f} seconds\n")
+    df.show(5)
 
 
 def get_folder_size(folder_path):
@@ -84,14 +85,8 @@ inputpath = "/Users/robert.altmiller/repos/projects/github/realtime_streaming_da
 outputpath = "/Users/robert.altmiller/repos/projects/github/realtime_streaming_data_compression/unit_tests/event-hub/data/event-hub-capture/original_parquets/benchmark_write"
 if os.path.exists(outputpath) and os.path.isdir(outputpath):
     shutil.rmtree(outputpath)
-
-# size_in_mb = get_folder_size(inputpath.split("/*.")[0])
-# numPartitions = math.ceil(size_in_mb / 150) - 5
-# print(f"numPartitions: {numPartitions}")
-# print(f"Folder size: {size_in_mb:.2f} MB")
-
 time_df_read_benchmark(read_method = "parquet", input_path = inputpath)
-time_df_write_benchmark(read_method = "parquet", write_method = "parquet", input_path = inputpath, output_path = outputpath, agg_by_col = "decoded_body")
+time_df_write_benchmark(read_method = "parquet", write_method = "delta", input_path = inputpath, output_path = outputpath, agg_by_col = "decoded_body")
 
 
 
@@ -101,11 +96,5 @@ inputpath = "/Users/robert.altmiller/repos/projects/github/realtime_streaming_da
 outputpath = "/Users/robert.altmiller/repos/projects/github/realtime_streaming_data_compression/unit_tests/event-hub/data/event-hub-capture/compressed_parquets/benchmark_write"
 if os.path.exists(outputpath) and os.path.isdir(outputpath):
     shutil.rmtree(outputpath)
-
-# size_in_mb = get_folder_size(inputpath.split("/*.")[0])
-# numPartitions = math.ceil(size_in_mb / 150) - 5
-# print(f"numPartitions: {numPartitions}")
-# print(f"Folder size: {size_in_mb:.2f} MB")
-    
 time_df_read_benchmark(read_method = "parquet", input_path = inputpath, decompress_data = True)
-time_df_write_benchmark(read_method = "parquet", write_method = "parquet", input_path = inputpath, output_path = outputpath, agg_by_col = "decompressed_decoded_body", decompress_data = True)
+time_df_write_benchmark(read_method = "parquet", write_method = "delta", input_path = inputpath, output_path = outputpath, agg_by_col = "decoded_body", decompress_data = True)

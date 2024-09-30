@@ -68,8 +68,7 @@ class EventHubConsumer:
             if batch_df_parsed.count() > 0:
                 batch_df_parsed_compressed = batch_df_parsed \
                     .withColumn("compressed_decoded_body", compress_data_udf(batch_df_parsed.decoded_body)) \
-                    .withColumn("md5_hash_decoded_body", md5_hash_data_udf(batch_df_parsed.decoded_body)) \
-                    .select("compressed_decoded_body", "md5_hash_decoded_body")
+                    .select("compressed_decoded_body")
                 
                 # Convert to Pandas and save as a JSON file
                 batch_df_parsed_pd = batch_df_parsed.select("decoded_body").toPandas()

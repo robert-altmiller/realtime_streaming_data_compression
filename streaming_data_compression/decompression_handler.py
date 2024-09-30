@@ -41,7 +41,7 @@ class DecompressionHandler(CompressionHandler):
         else: raise ValueError(f"the method {method} is not supported")
         
         # decompress the data
-        df = df.withColumn("decompressed_decoded_body", decompress_data_udf(df.compressed_decoded_body)).drop("compressed_decoded_body")
+        df = df.withColumn("decoded_body", decompress_data_udf(df.compressed_decoded_body)).drop("compressed_decoded_body")
         
         print(f"df.count(): {df.count()}")
         
