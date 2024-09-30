@@ -4,9 +4,9 @@ from streaming_config_params.config import *
 
 class CompressionHandler:
     
-    def __init__(self, original_file_path=None, gz_file_path=None):
+    def __init__(self, original_file_path=None, output_file_path=None):
         self.original_file_path = original_file_path
-        self.gz_file_path = gz_file_path
+        self.output_file_path = output_file_path
 
 
     def set_original_file_path(self, filepath):
@@ -16,11 +16,11 @@ class CompressionHandler:
         self.original_file_path = filepath
 
         
-    def set_gz_file_path(self, filepath):
+    def set_output_file_path(self, filepath):
         """
-        set the gz_file_path variable
+        set the output_file_path variable
         """
-        self.gz_file_path = filepath
+        self.output_file_path = filepath
 
 
     def md5_hash_udf(self):
@@ -34,22 +34,32 @@ class CompressionHandler:
 
     def compress_data_udf(self):
         """
-        return a spark UDF that compresses data using zlib-compressed and base64 Python libraries .
+        return a spark UDF that compresses data using compression Python libraries.
         """
         def compress_data(data):
-            compressed_data = zlib.compress(data.encode('utf-8'))
-            return base64.b64encode(compressed_data).decode('utf-8')
-        return udf(compress_data, StringType())
+            compressed_data = msgpack.packb(data.encode('utf-8'))
+            return compressed_data
+        return udf(compress_data, BinaryType())
 
 
     def decompress_data_udf(self):
         """
-        return a spark UDF that decompresses zlib-compressed data that is base64 encoded.
+        return a spark UDF that decompresses compressed data.
         """
         def decompress_data(compressed_data):
-            decompressed_data = zlib.decompress(base64.b64decode(compressed_data.encode('utf-8')))
-            return decompressed_data.decode('utf-8')
+            decompressed_data = msgpack.unpackb(compressed_data).decode('utf-8')
+            return decompressed_data
         return udf(decompress_data, StringType())
+
+
+    def compress_file_with_parquet(self, compression_method = "zstd"):
+        """
+        Reads a JSON file and stores it as a Parquet file using Spark with specified compression.
+        """
+        # Read the original file
+        df = spark.read.json(self.original_file_path)
+        # Store the DataFrame as a Parquet file with specified compression
+        df.write.mode('overwrite').option("compression", compression_method).parquet(self.output_file_path)
 
 
     def compress_file_with_gz(self, compresslevel=9):
@@ -60,27 +70,27 @@ class CompressionHandler:
         with open(self.original_file_path, 'r') as f:
             json_data = f.read()
         # Compress the JSON file with gz
-        with gzip.open(self.gz_file_path, 'wt', encoding='utf-8', compresslevel=compresslevel) as gz_file:
+        with gzip.open(self.output_file_path, 'wt', encoding='utf-8', compresslevel=compresslevel) as gz_file:
             gz_file.write(json_data)
-        print(f"File compressed to {self.gz_file_path} using gz.")
+        print(f"File compressed to {self.output_file_path} using gz.")
 
 
-    def get_gz_json_file_sizes(self):
+    def get_file_sizes(self):
         """
         returns the size of the original JSON and compressed gz files in KB.
         """
         original_size = os.path.getsize(self.original_file_path)
-        gz_size = os.path.getsize(self.gz_file_path)
-        return original_size / 1024, gz_size / 1024
+        output_size = os.path.getsize(self.output_file_path)
+        return original_size / 1024, output_size / 1024
 
 
-    def print_gz_compression_savings(self):
+    def print_compression_savings(self):
         """
-        prints the size of the original json file, compressed gz file, and the compression ratio.
+        prints the size of the original file, compressed file, and the compression ratio.
         """
-        original_size_kb, gz_size_kb = self.get_gz_json_file_sizes()
-        # Calculate JSON to GZ compression ratio
-        compression_ratio = 100 * (original_size_kb - gz_size_kb) / original_size_kb
-        print(f"\n{self.original_file_path} JSON original size: {original_size_kb:.2f} KB")
-        print(f"{self.gz_file_path} GZ compressed size: {gz_size_kb:.2f} KB")
-        print(f"JSON to GZ Compression Savings: {compression_ratio:.2f}%\n")
+        original_size_kb, output_size_kb = self.get_file_sizes()
+        # Calculate original_size and output_size compression ratio
+        compression_ratio = 100 * (original_size_kb - output_size_kb) / original_size_kb
+        print(f"\n{self.original_file_path} original size: {original_size_kb:.2f} KB")
+        print(f"{self.output_file_path} compressed size: {output_size_kb:.2f} KB")
+        print(f"Compression Savings Ratio: {compression_ratio:.2f}%\n")

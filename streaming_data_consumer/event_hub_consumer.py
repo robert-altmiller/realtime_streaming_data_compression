@@ -66,24 +66,33 @@ class EventHubConsumer:
 
             # write the parsed data into compressed JSON files to save on storage costs
             if batch_df_parsed.count() > 0:
-                batch_df_parsed = batch_df_parsed \
+                batch_df_parsed_compressed = batch_df_parsed \
                     .withColumn("compressed_decoded_body", compress_data_udf(batch_df_parsed.decoded_body)) \
                     .withColumn("md5_hash_decoded_body", md5_hash_data_udf(batch_df_parsed.decoded_body)) \
                     .select("compressed_decoded_body", "md5_hash_decoded_body")
                 
                 # Convert to Pandas and save as a JSON file
-                batch_df_parsed_pandas = batch_df_parsed.toPandas()
+                batch_df_parsed_pd = batch_df_parsed.select("decoded_body").toPandas()
+                batch_df_parsed_compressed_pd = batch_df_parsed_compressed.toPandas()
+                batch_df_parsed
                 timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
                 output_file_name = f'output_file_{timestamp}.json'
                 output_file_path = os.path.join(self.data_output_path, output_file_name)
                 print(f"output_file_path: {output_file_path}")
-                batch_df_parsed_pandas.to_json(output_file_path, orient='records', lines=True)
-
-                # Further compress the JSON file using gzip
-                ch_class.set_original_file_path(output_file_path)
-                ch_class.set_gz_file_path(output_file_path.replace(".json", ".gz"))
-                ch_class.compress_file_with_gz()
-                ch_class.print_gz_compression_savings()
+                # output the original json payloads without compression for benchmarking
+                batch_df_parsed_pd.to_json(output_file_path.replace(".json", ".json"), orient='records', lines=True)
+                
+                # Store original and compressed payload data as PARQUET
+                batch_df_parsed.write.mode('overwrite').option("compression", "zstd").parquet(output_file_path.replace(".json", "_original.parquet")) # use 'zstandard' compression
+                batch_df_parsed_compressed.write.mode('overwrite').option("compression", "zstd").parquet(output_file_path.replace(".json", "_compressed.parquet"))
+                
+                # Set the CompressionHandler class original file path (optional)
+                #ch_class.set_original_file_path(output_file_path)
+                
+                # Store payload data as GZIP (optional)
+                #ch_class.set_output_file_path(output_file_path.replace(".json", ".gz"))
+                #ch_class.compress_file_with_gz()
+                #ch_class.print_compression_savings()
 
         except Exception as e:
             print(f"Error processing batch {batch_id}: {str(e)}")

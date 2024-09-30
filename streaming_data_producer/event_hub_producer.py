@@ -1,6 +1,6 @@
 # library imports
 from streaming_config_params.config import *
-
+from streaming_data_producer.create_dynamic_json_payload import generate_json_payload
 
 class EventHubSender:
     
@@ -30,13 +30,15 @@ class EventHubSender:
     def generate_event_data(self, i):
         """
         Generate simulated event data.
-        """
+        Simple Example Payload:
         event_data = {
             "sensor_id": i,
             "temperature": random.uniform(20, 30),
             "humidity": random.uniform(40, 60),
             "timestamp": time.time()
         }
+        """
+        event_data = generate_json_payload(num_records = 1, num_items_in_history = 1, num_nested_records = 1)
         return event_data
 
 

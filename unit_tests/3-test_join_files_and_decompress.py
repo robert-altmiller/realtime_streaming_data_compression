@@ -10,13 +10,15 @@ else:
 print(f"eh_base_path: {eh_base_path}")
 
 data_basepath = f"{eh_base_path}/data"
-data_output_path = f"{data_basepath}/event-hub-capture"
+data_output_path = f"{data_basepath}/event-hub-capture/compressed_parquets"
 
 
 # DecompressionHandler usage example
+method = "parquet" # or "gzip"
 dh_class = DecompressionHandler(None)
 if is_running_in_databricks():
-    dh_class.set_gz_folder_path(f"file:{data_output_path}/*.gz")
-else: dh_class.set_gz_folder_path(f"{data_output_path}/*.gz")
-df = dh_class.decompress_gz_into_spark_dataframe()
-df.show(5, truncate = False)
+    dh_class.set_data_folder_path(f"file:{data_output_path}/*.{method}")
+else: 
+    dh_class.set_data_folder_path(f"{data_output_path}/*.{method}")
+df = dh_class.decompress_data_into_spark_dataframe(method = method, compression_method = "zstd")
+# df.show(5, truncate = False)

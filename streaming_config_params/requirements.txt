@@ -2,3 +2,7 @@ azure-eventhub
 delta-spark
 pyarrow
 typing_extensions
+pandas
+brotli
+zstandard
+msgpack

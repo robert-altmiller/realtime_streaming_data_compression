@@ -1,19 +1,20 @@
 
 # library imports
-import base64, gzip, hashlib, os, json, random, time, zlib
+import base64, glob, gzip, hashlib, os, json, random, time, zlib, brotli, lz4.frame, bz2, lzma, msgpack
+import zstandard as zstd
 from datetime import datetime
 import pandas as pd
 from pyspark import SparkContext
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, expr, lit, from_json, udf
 from pyspark.sql.utils import StreamingQueryException
-from pyspark.sql.types import StructType, StructField, IntegerType, DoubleType, StringType
+from pyspark.sql.types import BinaryType, StructType, StructField, IntegerType, DoubleType, StringType
 # install requirements.txt file (e.g. azure-eventhub)
 from streaming_config_params.install_requirements import *
 
 # connection parameters
-eventhub_name = "my-event-hub-2" # MODIFY
-event_hub_connection_str = "Endpoint=sb://alt-event-hub.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=XXXXXXXXXXXXXXXX" # MODIFY
+eventhub_name = "my-event-hub-5" # MODIFY
+event_hub_connection_str = "Endpoint=sb://alt-event-hub.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=XXXXXXXXXXXX" # MODIFY
 event_hub_consumer_group = "$Default" # MODIFY
 
 
