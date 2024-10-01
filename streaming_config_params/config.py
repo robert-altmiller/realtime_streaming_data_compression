@@ -1,7 +1,6 @@
 
 # library imports
-import base64, glob, gzip, hashlib, os, json, random, time, zlib, brotli, lz4.frame, bz2, lzma, msgpack
-import zstandard as zstd
+import base64, glob, hashlib, os, json, random, time
 from datetime import datetime
 import pandas as pd
 from pyspark import SparkContext
@@ -14,7 +13,7 @@ from streaming_config_params.install_requirements import *
 
 # connection parameters
 eventhub_name = "my-event-hub-5" # MODIFY
-event_hub_connection_str = "Endpoint=sb://alt-event-hub.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=XXXXXXXXXXXX" # MODIFY
+event_hub_connection_str = "Endpoint=sb://alt-event-hub.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=XXXXXXXXX" # MODIFY
 event_hub_consumer_group = "$Default" # MODIFY
 
 
@@ -61,5 +60,7 @@ if is_running_in_databricks():
 
 
 # additional imports after we install the requirements.txt file
+import msgpack
+import zstandard as zstd
 from azure.eventhub import EventData, EventHubProducerClient, EventHubConsumerClient
 from delta import * # has configure_spark_with_delta_pip() Python function

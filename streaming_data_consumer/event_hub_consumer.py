@@ -67,23 +67,28 @@ class EventHubConsumer:
             # write the parsed data into compressed JSON files to save on storage costs
             if batch_df_parsed.count() > 0:
                 batch_df_parsed_compressed = batch_df_parsed \
-                    .withColumn("compressed_decoded_body", compress_data_udf(batch_df_parsed.decoded_body)) \
-                    .select("compressed_decoded_body")
+                    .withColumn("decoded_body", compress_data_udf(batch_df_parsed.decoded_body)) \
+                    .select("decoded_body")
                 
                 # Convert to Pandas and save as a JSON file
                 batch_df_parsed_pd = batch_df_parsed.select("decoded_body").toPandas()
-                batch_df_parsed_compressed_pd = batch_df_parsed_compressed.toPandas()
-                batch_df_parsed
+                #batch_df_parsed_compressed_pd = batch_df_parsed_compressed.toPandas()
                 timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
                 output_file_name = f'output_file_{timestamp}.json'
                 output_file_path = os.path.join(self.data_output_path, output_file_name)
                 print(f"output_file_path: {output_file_path}")
                 # output the original json payloads without compression for benchmarking
-                batch_df_parsed_pd.to_json(output_file_path.replace(".json", ".json"), orient='records', lines=True)
+                # batch_df_parsed_pd.to_json(output_file_path.replace(".json", ".json"), orient='records', lines=True)
                 
                 # Store original and compressed payload data as PARQUET
-                batch_df_parsed.write.mode('overwrite').option("compression", "zstd").parquet(output_file_path.replace(".json", "_original.parquet")) # use 'zstandard' compression
-                batch_df_parsed_compressed.write.mode('overwrite').option("compression", "zstd").parquet(output_file_path.replace(".json", "_compressed.parquet"))
+                if is_running_in_databricks(): output_file_path_orig = f'/dbfs{output_file_path.replace(".json", "_original.parquet")}'
+                else: output_file_path_orig = output_file_path.replace(".json", "_original.parquet")
+                print(f"output_file_path_orig: {output_file_path_orig}")
+                batch_df_parsed.write.mode('overwrite').option("compression", "zstd").parquet(output_file_path_orig) # use 'zstandard' compression
+                if is_running_in_databricks(): output_file_path_comp = f'/dbfs{output_file_path.replace(".json", "_compressed.parquet")}'
+                else: output_file_path_comp = output_file_path.replace(".json", "_compressed.parquet")
+                print(f"output_file_path_comp: {output_file_path_comp}")
+                batch_df_parsed_compressed.write.mode('overwrite').option("compression", "zstd").parquet(output_file_path_comp)
                 
                 # Set the CompressionHandler class original file path (optional)
                 #ch_class.set_original_file_path(output_file_path)
